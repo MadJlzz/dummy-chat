@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package chat;
+
+option go_package = "chat";
+
+message SubscribeRequest {
+    string username = 1;
+}
+
+message SubscribeResponse {
+    bool subscribed = 1;
+}
+
+service Chat {
+    // Any clients have to subscribe to give some details about itself.
+    // Can return an INVALID_ARGUMENT if a client with the same name is already registered.
+    rpc Subscribe(SubscribeRequest) returns (SubscribeResponse) {};
+}
