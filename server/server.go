@@ -25,7 +25,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	api.RegisterChatServer(s, &chat.Chat{Subscribers: map[string]struct{}{}})
+	api.RegisterChatServiceServer(s, chat.NewChat())
 
 	go func() {
 		log.Printf("Starting Server on port [%s]...\n", *port)

@@ -64,7 +64,7 @@ func (m *SubscribeRequest) GetUsername() string {
 }
 
 type SubscribeResponse struct {
-	Subscribed           bool     `protobuf:"varint,1,opt,name=subscribed,proto3" json:"subscribed,omitempty"`
+	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -95,15 +95,15 @@ func (m *SubscribeResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SubscribeResponse proto.InternalMessageInfo
 
-func (m *SubscribeResponse) GetSubscribed() bool {
+func (m *SubscribeResponse) GetToken() string {
 	if m != nil {
-		return m.Subscribed
+		return m.Token
 	}
-	return false
+	return ""
 }
 
 type DisconnectRequest struct {
-	Username             string   `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -134,9 +134,9 @@ func (m *DisconnectRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DisconnectRequest proto.InternalMessageInfo
 
-func (m *DisconnectRequest) GetUsername() string {
+func (m *DisconnectRequest) GetToken() string {
 	if m != nil {
-		return m.Username
+		return m.Token
 	}
 	return ""
 }
@@ -180,30 +180,131 @@ func (m *DisconnectResponse) GetDisconnected() bool {
 	return false
 }
 
+type BroadcastRequest struct {
+	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Content              string   `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *BroadcastRequest) Reset()         { *m = BroadcastRequest{} }
+func (m *BroadcastRequest) String() string { return proto.CompactTextString(m) }
+func (*BroadcastRequest) ProtoMessage()    {}
+func (*BroadcastRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3e63ed4f3fe0af87, []int{4}
+}
+
+func (m *BroadcastRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BroadcastRequest.Unmarshal(m, b)
+}
+func (m *BroadcastRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BroadcastRequest.Marshal(b, m, deterministic)
+}
+func (m *BroadcastRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BroadcastRequest.Merge(m, src)
+}
+func (m *BroadcastRequest) XXX_Size() int {
+	return xxx_messageInfo_BroadcastRequest.Size(m)
+}
+func (m *BroadcastRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_BroadcastRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BroadcastRequest proto.InternalMessageInfo
+
+func (m *BroadcastRequest) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+func (m *BroadcastRequest) GetContent() string {
+	if m != nil {
+		return m.Content
+	}
+	return ""
+}
+
+type BroadcastResponse struct {
+	Username             string   `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Content              string   `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *BroadcastResponse) Reset()         { *m = BroadcastResponse{} }
+func (m *BroadcastResponse) String() string { return proto.CompactTextString(m) }
+func (*BroadcastResponse) ProtoMessage()    {}
+func (*BroadcastResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3e63ed4f3fe0af87, []int{5}
+}
+
+func (m *BroadcastResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BroadcastResponse.Unmarshal(m, b)
+}
+func (m *BroadcastResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BroadcastResponse.Marshal(b, m, deterministic)
+}
+func (m *BroadcastResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BroadcastResponse.Merge(m, src)
+}
+func (m *BroadcastResponse) XXX_Size() int {
+	return xxx_messageInfo_BroadcastResponse.Size(m)
+}
+func (m *BroadcastResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_BroadcastResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BroadcastResponse proto.InternalMessageInfo
+
+func (m *BroadcastResponse) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *BroadcastResponse) GetContent() string {
+	if m != nil {
+		return m.Content
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*SubscribeRequest)(nil), "chat.SubscribeRequest")
 	proto.RegisterType((*SubscribeResponse)(nil), "chat.SubscribeResponse")
 	proto.RegisterType((*DisconnectRequest)(nil), "chat.DisconnectRequest")
 	proto.RegisterType((*DisconnectResponse)(nil), "chat.DisconnectResponse")
+	proto.RegisterType((*BroadcastRequest)(nil), "chat.BroadcastRequest")
+	proto.RegisterType((*BroadcastResponse)(nil), "chat.BroadcastResponse")
 }
 
 func init() { proto.RegisterFile("api/chat/chat.proto", fileDescriptor_3e63ed4f3fe0af87) }
 
 var fileDescriptor_3e63ed4f3fe0af87 = []byte{
-	// 205 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4e, 0x2c, 0xc8, 0xd4,
-	0x4f, 0xce, 0x48, 0x2c, 0x01, 0x13, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0x2c, 0x20, 0xb6,
-	0x92, 0x1e, 0x97, 0x40, 0x70, 0x69, 0x52, 0x71, 0x72, 0x51, 0x66, 0x52, 0x6a, 0x50, 0x6a, 0x61,
-	0x69, 0x6a, 0x71, 0x89, 0x90, 0x14, 0x17, 0x47, 0x69, 0x71, 0x6a, 0x51, 0x5e, 0x62, 0x6e, 0xaa,
-	0x04, 0xa3, 0x02, 0xa3, 0x06, 0x67, 0x10, 0x9c, 0xaf, 0x64, 0xcc, 0x25, 0x88, 0xa4, 0xbe, 0xb8,
-	0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x8e, 0x8b, 0xab, 0x18, 0x26, 0x98, 0x02, 0xd6, 0xc2, 0x11,
-	0x84, 0x24, 0xa2, 0xa4, 0xcf, 0x25, 0xe8, 0x92, 0x59, 0x9c, 0x9c, 0x9f, 0x97, 0x97, 0x9a, 0x5c,
-	0x42, 0x8c, 0x2d, 0x16, 0x5c, 0x42, 0xc8, 0x1a, 0xa0, 0xd6, 0x28, 0x71, 0xf1, 0xa4, 0xc0, 0x45,
-	0xe1, 0x16, 0xa1, 0x88, 0x19, 0x75, 0x32, 0x72, 0xb1, 0x38, 0x67, 0x24, 0x96, 0x08, 0xd9, 0x71,
-	0x71, 0xc2, 0x1d, 0x2a, 0x24, 0xa6, 0x07, 0xf6, 0x38, 0xba, 0x4f, 0xa5, 0xc4, 0x31, 0xc4, 0x21,
-	0x56, 0x29, 0x31, 0x08, 0x39, 0x72, 0x71, 0x21, 0x9c, 0x20, 0x04, 0x55, 0x88, 0xe1, 0x0b, 0x29,
-	0x09, 0x4c, 0x09, 0x98, 0x11, 0x4e, 0x6c, 0x51, 0xe0, 0x30, 0x4e, 0x62, 0x03, 0x07, 0xb8, 0x31,
-	0x20, 0x00, 0x00, 0xff, 0xff, 0xea, 0xc7, 0x33, 0x1e, 0x87, 0x01, 0x00, 0x00,
+	// 273 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x92, 0x31, 0x4f, 0xc3, 0x30,
+	0x10, 0x85, 0x6b, 0x04, 0xa5, 0x39, 0x18, 0xda, 0x03, 0x41, 0x94, 0x09, 0x79, 0x2a, 0x4b, 0x40,
+	0xb0, 0x30, 0x21, 0x11, 0x58, 0x58, 0xd3, 0x8d, 0xcd, 0x71, 0x4e, 0x6a, 0x84, 0xb0, 0x83, 0xed,
+	0xf0, 0x4b, 0xf9, 0x41, 0xa8, 0x6e, 0x62, 0x42, 0x43, 0xb3, 0x44, 0xb9, 0xe7, 0xe7, 0x77, 0xe7,
+	0x4f, 0x07, 0x67, 0xa2, 0xae, 0x6e, 0xe4, 0x5a, 0x38, 0xff, 0x49, 0x6b, 0xa3, 0x9d, 0xc6, 0xc3,
+	0xcd, 0x3f, 0x4f, 0x61, 0xbe, 0x6a, 0x0a, 0x2b, 0x4d, 0x55, 0x50, 0x4e, 0x9f, 0x0d, 0x59, 0x87,
+	0x09, 0xcc, 0x1a, 0x4b, 0x46, 0x89, 0x0f, 0x8a, 0xd9, 0x15, 0x5b, 0x46, 0x79, 0xa8, 0xf9, 0x35,
+	0x2c, 0x7a, 0x7e, 0x5b, 0x6b, 0x65, 0x09, 0xcf, 0xe1, 0xc8, 0xe9, 0x77, 0x52, 0xad, 0x7b, 0x5b,
+	0x6c, 0xac, 0x2f, 0x95, 0x95, 0x5a, 0x29, 0x92, 0xae, 0xcb, 0xfe, 0xdf, 0xfa, 0x00, 0xd8, 0xb7,
+	0xb6, 0xb1, 0x1c, 0x4e, 0xcb, 0xa0, 0x52, 0xe9, 0xaf, 0xcc, 0xf2, 0x3f, 0x1a, 0xcf, 0x60, 0x9e,
+	0x19, 0x2d, 0x4a, 0x29, 0xec, 0x78, 0x0f, 0x8c, 0xe1, 0x58, 0x6a, 0xe5, 0x48, 0xb9, 0xf8, 0xc0,
+	0xeb, 0x5d, 0xc9, 0x5f, 0x61, 0xd1, 0xcb, 0x68, 0x9b, 0x8f, 0x40, 0xd8, 0x1f, 0x75, 0xf7, 0xcd,
+	0xe0, 0xe4, 0x79, 0x2d, 0xdc, 0x8a, 0xcc, 0x57, 0x25, 0x09, 0x1f, 0x21, 0x0a, 0xb8, 0xf0, 0x22,
+	0xf5, 0xf8, 0x77, 0x79, 0x27, 0x97, 0x03, 0x7d, 0x3b, 0x03, 0x9f, 0xe0, 0x13, 0xc0, 0x2f, 0x18,
+	0x6c, 0x8d, 0x03, 0xaa, 0x49, 0x3c, 0x3c, 0x08, 0x11, 0x19, 0x44, 0xe1, 0x75, 0xdd, 0x08, 0xbb,
+	0xc8, 0xba, 0x11, 0x06, 0x18, 0xf8, 0x64, 0xc9, 0x6e, 0x59, 0x36, 0x7d, 0xf3, 0xdb, 0x52, 0x4c,
+	0xfd, 0xea, 0xdc, 0xff, 0x04, 0x00, 0x00, 0xff, 0xff, 0xb5, 0x6d, 0x70, 0x12, 0x51, 0x02, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -214,10 +315,10 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// ChatClient is the client API for Chat service.
+// ChatServiceClient is the client API for ChatService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type ChatClient interface {
+type ChatServiceClient interface {
 	// Any clients have to subscribe to give some details about itself.
 	// Can return an ALREADY_EXISTS if a client with the same name is already registered.
 	Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (*SubscribeResponse, error)
@@ -225,36 +326,70 @@ type ChatClient interface {
 	// A unique token generated by the client will be added soon to prevent this vulnerability.
 	// Return NOT_FOUND if the client is already disconnected.
 	Disconnect(ctx context.Context, in *DisconnectRequest, opts ...grpc.CallOption) (*DisconnectResponse, error)
+	// Bidirectional RPC that broadcasts to all clients incoming messages to the server.
+	// It may be done more elegantly. Any ideas ?
+	Broadcast(ctx context.Context, opts ...grpc.CallOption) (ChatService_BroadcastClient, error)
 }
 
-type chatClient struct {
+type chatServiceClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewChatClient(cc *grpc.ClientConn) ChatClient {
-	return &chatClient{cc}
+func NewChatServiceClient(cc *grpc.ClientConn) ChatServiceClient {
+	return &chatServiceClient{cc}
 }
 
-func (c *chatClient) Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (*SubscribeResponse, error) {
+func (c *chatServiceClient) Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (*SubscribeResponse, error) {
 	out := new(SubscribeResponse)
-	err := c.cc.Invoke(ctx, "/chat.Chat/Subscribe", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat.ChatService/Subscribe", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatClient) Disconnect(ctx context.Context, in *DisconnectRequest, opts ...grpc.CallOption) (*DisconnectResponse, error) {
+func (c *chatServiceClient) Disconnect(ctx context.Context, in *DisconnectRequest, opts ...grpc.CallOption) (*DisconnectResponse, error) {
 	out := new(DisconnectResponse)
-	err := c.cc.Invoke(ctx, "/chat.Chat/Disconnect", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat.ChatService/Disconnect", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ChatServer is the server API for Chat service.
-type ChatServer interface {
+func (c *chatServiceClient) Broadcast(ctx context.Context, opts ...grpc.CallOption) (ChatService_BroadcastClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ChatService_serviceDesc.Streams[0], "/chat.ChatService/Broadcast", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &chatServiceBroadcastClient{stream}
+	return x, nil
+}
+
+type ChatService_BroadcastClient interface {
+	Send(*BroadcastRequest) error
+	Recv() (*BroadcastResponse, error)
+	grpc.ClientStream
+}
+
+type chatServiceBroadcastClient struct {
+	grpc.ClientStream
+}
+
+func (x *chatServiceBroadcastClient) Send(m *BroadcastRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *chatServiceBroadcastClient) Recv() (*BroadcastResponse, error) {
+	m := new(BroadcastResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// ChatServiceServer is the server API for ChatService service.
+type ChatServiceServer interface {
 	// Any clients have to subscribe to give some details about itself.
 	// Can return an ALREADY_EXISTS if a client with the same name is already registered.
 	Subscribe(context.Context, *SubscribeRequest) (*SubscribeResponse, error)
@@ -262,72 +397,111 @@ type ChatServer interface {
 	// A unique token generated by the client will be added soon to prevent this vulnerability.
 	// Return NOT_FOUND if the client is already disconnected.
 	Disconnect(context.Context, *DisconnectRequest) (*DisconnectResponse, error)
+	// Bidirectional RPC that broadcasts to all clients incoming messages to the server.
+	// It may be done more elegantly. Any ideas ?
+	Broadcast(ChatService_BroadcastServer) error
 }
 
-// UnimplementedChatServer can be embedded to have forward compatible implementations.
-type UnimplementedChatServer struct {
+// UnimplementedChatServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedChatServiceServer struct {
 }
 
-func (*UnimplementedChatServer) Subscribe(ctx context.Context, req *SubscribeRequest) (*SubscribeResponse, error) {
+func (*UnimplementedChatServiceServer) Subscribe(ctx context.Context, req *SubscribeRequest) (*SubscribeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Subscribe not implemented")
 }
-func (*UnimplementedChatServer) Disconnect(ctx context.Context, req *DisconnectRequest) (*DisconnectResponse, error) {
+func (*UnimplementedChatServiceServer) Disconnect(ctx context.Context, req *DisconnectRequest) (*DisconnectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Disconnect not implemented")
 }
-
-func RegisterChatServer(s *grpc.Server, srv ChatServer) {
-	s.RegisterService(&_Chat_serviceDesc, srv)
+func (*UnimplementedChatServiceServer) Broadcast(srv ChatService_BroadcastServer) error {
+	return status.Errorf(codes.Unimplemented, "method Broadcast not implemented")
 }
 
-func _Chat_Subscribe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func RegisterChatServiceServer(s *grpc.Server, srv ChatServiceServer) {
+	s.RegisterService(&_ChatService_serviceDesc, srv)
+}
+
+func _ChatService_Subscribe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SubscribeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatServer).Subscribe(ctx, in)
+		return srv.(ChatServiceServer).Subscribe(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chat.Chat/Subscribe",
+		FullMethod: "/chat.ChatService/Subscribe",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServer).Subscribe(ctx, req.(*SubscribeRequest))
+		return srv.(ChatServiceServer).Subscribe(ctx, req.(*SubscribeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Chat_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ChatService_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DisconnectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatServer).Disconnect(ctx, in)
+		return srv.(ChatServiceServer).Disconnect(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chat.Chat/Disconnect",
+		FullMethod: "/chat.ChatService/Disconnect",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServer).Disconnect(ctx, req.(*DisconnectRequest))
+		return srv.(ChatServiceServer).Disconnect(ctx, req.(*DisconnectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _Chat_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "chat.Chat",
-	HandlerType: (*ChatServer)(nil),
+func _ChatService_Broadcast_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ChatServiceServer).Broadcast(&chatServiceBroadcastServer{stream})
+}
+
+type ChatService_BroadcastServer interface {
+	Send(*BroadcastResponse) error
+	Recv() (*BroadcastRequest, error)
+	grpc.ServerStream
+}
+
+type chatServiceBroadcastServer struct {
+	grpc.ServerStream
+}
+
+func (x *chatServiceBroadcastServer) Send(m *BroadcastResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *chatServiceBroadcastServer) Recv() (*BroadcastRequest, error) {
+	m := new(BroadcastRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+var _ChatService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "chat.ChatService",
+	HandlerType: (*ChatServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Subscribe",
-			Handler:    _Chat_Subscribe_Handler,
+			Handler:    _ChatService_Subscribe_Handler,
 		},
 		{
 			MethodName: "Disconnect",
-			Handler:    _Chat_Disconnect_Handler,
+			Handler:    _ChatService_Disconnect_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Broadcast",
+			Handler:       _ChatService_Broadcast_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "api/chat/chat.proto",
 }
